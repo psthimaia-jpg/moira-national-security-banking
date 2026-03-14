@@ -1,0 +1,428 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Moira SmartBank AI Fonts ──────────────────────────────── */
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/assets/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sora";
+  src: url("/assets/fonts/Sora-Variable.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono-Variable.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  /* ── Moira Dark Theme (primary) ─────────────────────────── */
+  :root {
+    color-scheme: dark;
+    --radius: 0.75rem;
+
+    /* Core palette — deep navy / midnight banking */
+    --background: 0.12 0.018 255;
+    --foreground: 0.95 0.01 255;
+
+    --card: 0.16 0.022 255;
+    --card-foreground: 0.95 0.01 255;
+
+    --popover: 0.18 0.025 255;
+    --popover-foreground: 0.95 0.01 255;
+
+    /* Gold/amber primary brand */
+    --primary: 0.78 0.12 75;
+    --primary-foreground: 0.12 0.018 255;
+
+    --secondary: 0.22 0.028 255;
+    --secondary-foreground: 0.95 0.01 255;
+
+    --muted: 0.2 0.022 255;
+    --muted-foreground: 0.6 0.04 255;
+
+    --accent: 0.26 0.032 255;
+    --accent-foreground: 0.95 0.01 255;
+
+    --destructive: 0.65 0.22 15;
+    --destructive-foreground: 0.98 0 0;
+
+    --success: 0.65 0.16 150;
+    --success-foreground: 0.98 0 0;
+
+    --border: 0.28 0.03 255;
+    --input: 0.22 0.025 255;
+    --ring: 0.78 0.12 75;
+
+    /* Chart palette */
+    --chart-1: 0.78 0.12 75;
+    --chart-2: 0.65 0.16 150;
+    --chart-3: 0.65 0.22 15;
+    --chart-4: 0.6 0.18 200;
+    --chart-5: 0.7 0.15 300;
+
+    /* Sidebar */
+    --sidebar: 0.14 0.02 255;
+    --sidebar-foreground: 0.95 0.01 255;
+    --sidebar-primary: 0.78 0.12 75;
+    --sidebar-primary-foreground: 0.12 0.018 255;
+    --sidebar-accent: 0.22 0.028 255;
+    --sidebar-accent-foreground: 0.95 0.01 255;
+    --sidebar-border: 0.28 0.03 255;
+    --sidebar-ring: 0.78 0.12 75;
+
+    /* Moira brand tokens */
+    --gold: 0.78 0.12 75;
+    --gold-bright: 0.86 0.14 75;
+    --gold-dim: 0.55 0.08 75;
+    --navy-deep: 0.09 0.015 255;
+    --navy-surface: 0.14 0.02 255;
+    --navy-card: 0.18 0.025 255;
+    --navy-raised: 0.24 0.032 255;
+
+    /* Mini browser chrome */
+    --browser-chrome: 0.11 0.016 255;
+    --browser-bar: 0.15 0.02 255;
+    --browser-border: 0.25 0.03 255;
+
+    /* Sensor status colors */
+    --sensor-active: 0.65 0.16 150;
+    --sensor-warning: 0.78 0.12 75;
+    --sensor-error: 0.65 0.22 15;
+    --sensor-idle: 0.45 0.04 255;
+
+    /* Vault / 26.ai tokens */
+    --vault-cyan: 0.82 0.14 200;
+    --vault-cyan-dim: 0.55 0.1 200;
+    --vault-locked: 0.62 0.2 18;
+    --vault-unlocked: 0.7 0.17 150;
+    --vault-surface: 0.1 0.02 245;
+    --vault-card: 0.14 0.025 245;
+    --vault-border: 0.22 0.03 245;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    @apply bg-background text-foreground;
+    font-family: "Sora", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  #root {
+    height: 100%;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: oklch(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(var(--border));
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(var(--gold));
+  }
+}
+
+/* ── Print styles ────────────────────────────────────────── */
+@media print {
+  /* Hide everything except the printable note */
+  body > #root,
+  body > * {
+    display: none !important;
+  }
+
+  /* Show and style the printable note */
+  #moira-printable-note {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-family: 'Sora', Arial, sans-serif !important;
+    font-size: 10pt !important;
+    padding: 0 !important;
+  }
+
+  /* Force light mode for print */
+  #moira-printable-note * {
+    color-scheme: light !important;
+    background: transparent !important;
+  }
+
+  /* Note header */
+  #moira-printable-note .rounded-xl,
+  #moira-printable-note .rounded-2xl {
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    background: #fafafa !important;
+    padding: 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Text colors */
+  #moira-printable-note p,
+  #moira-printable-note span,
+  #moira-printable-note div {
+    color: #222 !important;
+  }
+
+  /* Table rows */
+  #moira-printable-note .border-b {
+    border-bottom: 1px solid #ddd !important;
+  }
+
+  /* Textarea — show as static text block */
+  #moira-printable-note textarea {
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    color: #111 !important;
+    padding: 8px !important;
+    width: 100% !important;
+    min-height: 60px !important;
+    font-family: inherit !important;
+    font-size: 10pt !important;
+    resize: none !important;
+  }
+
+  /* Hide action buttons in print */
+  #moira-printable-note .print-hide {
+    display: none !important;
+  }
+
+  /* Page settings */
+  @page {
+    margin: 15mm;
+    size: A4 portrait;
+  }
+}
+
+/* ── Utility classes ─────────────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: "Cabinet Grotesk", system-ui, sans-serif;
+  }
+
+  .font-mono-code {
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .text-gold {
+    color: oklch(var(--gold));
+  }
+
+  .bg-gold {
+    background-color: oklch(var(--gold));
+  }
+
+  .border-gold {
+    border-color: oklch(var(--gold));
+  }
+
+  .bg-navy-deep {
+    background-color: oklch(var(--navy-deep));
+  }
+
+  .bg-navy-surface {
+    background-color: oklch(var(--navy-surface));
+  }
+
+  .bg-navy-card {
+    background-color: oklch(var(--navy-card));
+  }
+
+  .bg-navy-raised {
+    background-color: oklch(var(--navy-raised));
+  }
+
+  .text-success {
+    color: oklch(var(--success));
+  }
+
+  .bg-success {
+    background-color: oklch(var(--success));
+  }
+
+  .sensor-pulse {
+    animation: sensor-pulse 2s ease-in-out infinite;
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(
+      90deg,
+      oklch(var(--gold-dim)) 0%,
+      oklch(var(--gold-bright)) 50%,
+      oklch(var(--gold-dim)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  .glass-card {
+    background: oklch(var(--navy-card) / 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid oklch(var(--border) / 0.5);
+  }
+
+  @keyframes sensor-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.95); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes float-up {
+    0% { transform: translateY(8px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes slide-in-right {
+    0% { transform: translateX(20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes slide-in-left {
+    0% { transform: translateX(-20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+
+  .animate-float-up {
+    animation: float-up 0.4s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.3s ease-out;
+  }
+
+  /* Mini browser specific */
+  .mini-browser-content {
+    height: calc(100% - 96px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Moira glow effect */
+  .moira-glow {
+    box-shadow: 0 0 20px oklch(var(--gold) / 0.3), 0 0 40px oklch(var(--gold) / 0.1);
+  }
+
+  .credit-amount {
+    color: oklch(var(--success));
+  }
+
+  .debit-amount {
+    color: oklch(var(--destructive));
+  }
+
+  /* Vault utilities */
+  .vault-glow-cyan {
+    box-shadow: 0 0 24px oklch(var(--vault-cyan) / 0.35), 0 0 60px oklch(var(--vault-cyan) / 0.1);
+  }
+
+  .vault-glow-red {
+    box-shadow: 0 0 24px oklch(var(--vault-locked) / 0.4), 0 0 60px oklch(var(--vault-locked) / 0.12);
+  }
+
+  .vault-glow-green {
+    box-shadow: 0 0 24px oklch(var(--vault-unlocked) / 0.4), 0 0 60px oklch(var(--vault-unlocked) / 0.12);
+  }
+
+  @keyframes vault-shake {
+    0%, 100% { transform: translateX(0); }
+    15%  { transform: translateX(-6px) rotate(-1deg); }
+    30%  { transform: translateX(6px) rotate(1deg); }
+    45%  { transform: translateX(-5px); }
+    60%  { transform: translateX(5px); }
+    75%  { transform: translateX(-3px); }
+    90%  { transform: translateX(3px); }
+  }
+
+  .animate-vault-shake {
+    animation: vault-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  @keyframes breach-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 oklch(0.62 0.2 18 / 0.5); }
+    50% { box-shadow: 0 0 0 12px oklch(0.62 0.2 18 / 0); }
+  }
+
+  .animate-breach-pulse {
+    animation: breach-pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes pin-dot-fill {
+    0% { transform: scale(0.3); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .pin-dot-filled {
+    animation: pin-dot-fill 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes vault-unlock {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.08) rotate(2deg); }
+    60% { transform: scale(0.96) rotate(-1deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+
+  .animate-vault-unlock {
+    animation: vault-unlock 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .metallic-text {
+    background: linear-gradient(
+      135deg,
+      oklch(0.85 0.05 255) 0%,
+      oklch(0.7 0.02 255) 30%,
+      oklch(0.95 0.02 255) 50%,
+      oklch(0.7 0.02 255) 70%,
+      oklch(0.85 0.05 255) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

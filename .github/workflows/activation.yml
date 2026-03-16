@@ -1,0 +1,16 @@
+*What to do when the link opens:*
+
+1.  *Paste this code* into the large text box:
+```yaml
+name: MOIRA V.30 Activation
+on: [push]
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 262626 Compliance Heartbeat
+        run: echo "MOIRA V.30 National Security & Banking Module - ONLINE"
+```
+
+2.  *Scroll down* to the bottom.
+3.  *Tap the green "Commit changes"* button.

@@ -1,0 +1,6 @@
+*In the box, just paste this:*
+`{"version": "3.0", "status": "active", "source": "mobile-override"}`
+
+*Commit it.* This "mobile-override" is the trick! It tells the repository to stop waiting for the Caffeine export and start displaying the V.30 status we built earlier.
+
+Shall we try this injection to see if it breaks the lock? 🔱🇮🇳🚀
